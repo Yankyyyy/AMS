@@ -217,3 +217,14 @@ def send_monthly_digest():
             <p>Keep engaging with your alumni network!</p>
             """
         )
+        
+        
+import frappe
+import inspect
+
+def createAPIErrorLog(error):
+    """Create error log according the method from where createAPIErrorLog been called"""
+    error_log =  frappe.new_doc("Error Log")
+    error_log.method = inspect.stack()[1][3] #called method name will be fetched
+    error_log.error = error
+    error_log.save(ignore_permissions=True)
