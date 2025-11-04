@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "format:EVENT-{event_name}-{##}",
  "creation": "2025-10-29 14:10:23.661635",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -24,7 +25,8 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Event Name",
-   "reqd": 1
+   "reqd": 1,
+   "unique": 1
   },
   {
    "fieldname": "description",
@@ -90,11 +92,17 @@
  "grid_page_length": 50,
  "image_field": "event_image",
  "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2025-11-04 12:18:08.489856",
+ "links": [
+  {
+   "link_doctype": "Event RSVP",
+   "link_fieldname": "event"
+  }
+ ],
+ "modified": "2025-11-04 12:48:22.321904",
  "modified_by": "Administrator",
  "module": "AMS",
  "name": "AMS Event",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
