@@ -43,7 +43,7 @@ def paginate(items, page=1, page_size=20):
 # ============== AUTH ENDPOINTS ==============
 
 @frappe.whitelist(allow_guest=True)
-def register_alumni(email, first_name, last_name, batch_year, phone=None, course=None):
+def register_alumni(email, first_name, last_name, institution, batch_year, phone=None, course=None):
     """Register new alumni (creates both User & Alumni records)"""
     try:
         # Validate email
