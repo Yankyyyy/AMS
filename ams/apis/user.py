@@ -33,11 +33,11 @@ def createUser():
                 user.username = user.suggest_username()
             user.send_welcome_email = 1
             user.append('roles', {
-                'role': 'Sales User'
+                'role': 'Employee'
             })
             user.save(ignore_permissions=True)
             frappe.db.commit()
-            return "User-created successfully"
+            return "User-created successfully. Please check your email for login details."
     except Exception:
         createAPIErrorLog(frappe.get_traceback())
 
