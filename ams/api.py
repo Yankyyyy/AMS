@@ -76,6 +76,7 @@ def register_alumni(email, first_name, last_name, batch_year, phone=None, course
             "last_name": last_name,
             "email": email,
             "phone": phone,
+            "institution": institution,
             "batch_year": cint(batch_year),
             "course": course,
             "status": "Active"
@@ -135,7 +136,7 @@ def get_current_user():
     try:
         current_user = frappe.session.user
         alumni = frappe.db.get_value("Alumni", {"email": current_user}, [
-            "name", "first_name", "last_name", "email", "phone",
+            "name", "first_name", "last_name", "email", "phone", "institution",
             "batch_year", "course", "job_title", "company", "bio",
             "profile_picture", "linkedin_url", "location", "status"
         ])
@@ -149,15 +150,16 @@ def get_current_user():
             "last_name": alumni[2],
             "email": alumni[3],
             "phone": alumni[4],
-            "batch_year": alumni[5],
-            "course": alumni[6],
-            "job_title": alumni[7],
-            "company": alumni[8],
-            "bio": alumni[9],
-            "profile_picture": alumni[10],
-            "linkedin_url": alumni[11],
-            "location": alumni[12],
-            "status": alumni[13]
+            "institution": alumni[5],
+            "batch_year": alumni[6],
+            "course": alumni[7],
+            "job_title": alumni[8],
+            "company": alumni[9],
+            "bio": alumni[10],
+            "profile_picture": alumni[11],
+            "linkedin_url": alumni[12],
+            "location": alumni[13],
+            "status": alumni[14]
         })
     except Exception as e:
         return error_response(str(e), "USER_FETCH_ERROR", 500)
@@ -192,6 +194,7 @@ def get_alumni_profile(alumni_id):
             "last_name": alumni.last_name,
             "email": alumni.email,
             "phone": alumni.phone,
+            "institution": alumni.institution,
             "batch_year": alumni.batch_year,
             "course": alumni.course,
             "job_title": alumni.job_title,
@@ -215,7 +218,7 @@ def get_alumni_profile(alumni_id):
         return error_response(str(e), "PROFILE_FETCH_ERROR", 500)
 
 @frappe.whitelist()
-def search_alumni(query="", batch_year=None, course=None, company=None, page=1, page_size=20):
+def search_alumni(query="", batch_year=None, institution=None, course=None, company=None, page=1, page_size=20):
     """Advanced alumni search with filters"""
     try:
         filters = []
@@ -231,6 +234,8 @@ def search_alumni(query="", batch_year=None, course=None, company=None, page=1, 
                 ["Alumni", "job_title", "like", f"%{query}%"]
             ])
         
+        if institution:
+            filters.append(["Alumni", "institution", "=", institution])
         if batch_year:
             filters.append(["Alumni", "batch_year", "=", cint(batch_year)])
         if course:
@@ -243,7 +248,7 @@ def search_alumni(query="", batch_year=None, course=None, company=None, page=1, 
         results = frappe.db.get_list(
             "Alumni",
             filters=filters,
-            fields=["name", "first_name", "last_name", "batch_year", "job_title", 
+            fields=["name", "first_name", "last_name", "institution", "batch_year", "job_title", 
                    "company", "profile_picture", "location"],
             order_by="modified desc"
         )
@@ -277,7 +282,7 @@ def get_alumni_by_course(course, page=1, page_size=20):
         results = frappe.db.get_list(
             "Alumni",
             filters={"course": course, "status": "Active"},
-            fields=["name", "first_name", "last_name", "batch_year", "job_title", 
+            fields=["name", "first_name", "last_name", "institution", "batch_year", "job_title", 
                    "company", "profile_picture"],
             order_by="batch_year desc, first_name asc"
         )
@@ -286,6 +291,23 @@ def get_alumni_by_course(course, page=1, page_size=20):
         return success_response(paginated)
     except Exception as e:
         return error_response(str(e), "COURSE_FETCH_ERROR", 500)
+
+@frappe.whitelist()
+def get_alumni_by_institution(institution, page=1, page_size=20):
+    """Get all alumni from a specific course"""
+    try:
+        results = frappe.db.get_list(
+            "Alumni",
+            filters={"institution": institution, "status": "Active"},
+            fields=["name", "first_name", "last_name", "institution", "batch_year", "job_title", 
+                   "company", "profile_picture"],
+            order_by="batch_year desc, first_name asc"
+        )
+        
+        paginated = paginate(results, page, page_size)
+        return success_response(paginated)
+    except Exception as e:
+        return error_response(str(e), "INSTITUTION_FETCH_ERROR", 500)
 
 @frappe.whitelist()
 def update_alumni_profile(first_name=None, last_name=None, phone=None, bio=None, 

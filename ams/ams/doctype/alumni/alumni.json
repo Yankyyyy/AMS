@@ -16,6 +16,7 @@
   "joined_on",
   "status",
   "column_break_tafl",
+  "institution",
   "course",
   "batch_year",
   "company",
@@ -39,9 +40,10 @@
   },
   {
    "fieldname": "email",
-   "fieldtype": "Data",
+   "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Email",
+   "options": "User",
    "reqd": 1,
    "unique": 1
   },
@@ -115,13 +117,44 @@
   {
    "fieldname": "column_break_tafl",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "institution",
+   "fieldtype": "Link",
+   "label": "Institution",
+   "options": "Institution"
   }
  ],
  "grid_page_length": 50,
  "image_field": "profile_picture",
  "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2025-11-04 12:12:14.719793",
+ "links": [
+  {
+   "link_doctype": "Wall Post",
+   "link_fieldname": "alumni"
+  },
+  {
+   "link_doctype": "Wall Post Like",
+   "link_fieldname": "alumni"
+  },
+  {
+   "link_doctype": "AMS Event",
+   "link_fieldname": "organizer"
+  },
+  {
+   "link_doctype": "Event RSVP",
+   "link_fieldname": "alumni"
+  },
+  {
+   "link_doctype": "Membership",
+   "link_fieldname": "alumni"
+  },
+  {
+   "link_doctype": "Donation",
+   "link_fieldname": "donor_alumni"
+  }
+ ],
+ "modified": "2025-11-04 12:50:05.420667",
  "modified_by": "Administrator",
  "module": "AMS",
  "name": "Alumni",
