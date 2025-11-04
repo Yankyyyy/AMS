@@ -1,0 +1,125 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"Qqfl8luEC7\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Home</span>\",\"col\":12}},{\"id\":\"uVjory168O\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"xCdEKQ8lqI\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"User\",\"col\":4}},{\"id\":\"LwS9fevncq\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Institution\",\"col\":4}},{\"id\":\"8d3IBnKsQY\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Institution Type\",\"col\":4}},{\"id\":\"2U5KVMa0-7\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Course\",\"col\":4}},{\"id\":\"ckX9qg5Zzv\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Alumni\",\"col\":4}},{\"id\":\"HCmx1Yb98h\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Membership\",\"col\":4}},{\"id\":\"aA8f62W-Q-\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Wall Post\",\"col\":4}},{\"id\":\"rFfbH9RGJK\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Wall Post Like\",\"col\":4}},{\"id\":\"ibIY3IMa4Y\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"AMS Event\",\"col\":4}},{\"id\":\"Be6ID4XgL8\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Donation\",\"col\":4}},{\"id\":\"jFW_4m8R05\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Event RSVP\",\"col\":4}},{\"id\":\"pPi-nq2FXw\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"System Settings\",\"col\":4}}]",
+ "creation": "2025-11-04 10:36:03.127403",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "retail",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Home",
+ "links": [],
+ "modified": "2025-11-04 11:57:16.511115",
+ "modified_by": "Administrator",
+ "module": "AMS",
+ "name": "Home",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 1.0,
+ "shortcuts": [
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Institution",
+   "link_to": "Institution",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "System Settings",
+   "link_to": "System Settings",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "User",
+   "link_to": "User",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Alumni",
+   "link_to": "Alumni",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Institution Type",
+   "link_to": "Institution Type",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Course",
+   "link_to": "Course",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Wall Post Like",
+   "link_to": "Wall Post Like",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Membership",
+   "link_to": "Membership",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Wall Post",
+   "link_to": "Wall Post",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "AMS Event",
+   "link_to": "AMS Event",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Donation",
+   "link_to": "Donation",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Event RSVP",
+   "link_to": "Event RSVP",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Home"
+}
