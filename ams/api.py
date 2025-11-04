@@ -44,7 +44,7 @@ def paginate(items, page=1, page_size=20):
 
 @frappe.whitelist(allow_guest=True)
 def register_alumni(email, first_name, last_name, batch_year, phone=None, course=None):
-    """Register new alumni"""
+    """Register new alumni (creates both User & Alumni records)"""
     try:
         # Validate email
         if not re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', email):
@@ -54,7 +54,22 @@ def register_alumni(email, first_name, last_name, batch_year, phone=None, course
         if frappe.db.exists("Alumni", email):
             return error_response("Alumni already registered", "ALUMNI_EXISTS", 409)
         
-        # Create alumni record
+        # Check if user exists
+        if frappe.db.exists("User", email):
+            return error_response("Email already in use", "EMAIL_IN_USE", 409)
+        
+        # Step 1: Create User account
+        user = frappe.get_doc({
+            "doctype": "User",
+            "email": email,
+            "first_name": first_name,
+            "last_name": last_name,
+            "send_welcome_email": 1,
+            "roles": [{"role": "Alumni"}]  # Assign Alumni role
+        })
+        user.insert(ignore_permissions=True)
+        
+        # Step 2: Create Alumni record (linked to user via email)
         alumni = frappe.get_doc({
             "doctype": "Alumni",
             "first_name": first_name,
@@ -66,42 +81,53 @@ def register_alumni(email, first_name, last_name, batch_year, phone=None, course
             "status": "Active"
         })
         alumni.insert(ignore_permissions=True)
+        
         frappe.db.commit()
         
         return success_response(
-            {"email": alumni.email, "name": alumni.name},
-            "Alumni registered successfully. Check your email for verification.",
+            {
+                "email": alumni.email,
+                "alumni_id": alumni.name,
+                "user_created": True
+            },
+            "Alumni registered successfully! Check your email for login credentials.",
             201
         )
+    except frappe.DuplicateEntryError:
+        return error_response("Email already registered", "DUPLICATE_EMAIL", 409)
     except Exception as e:
         return error_response(str(e), "REGISTRATION_ERROR", 500)
 
 @frappe.whitelist(allow_guest=True)
 def login(email, password):
-    """Authenticate user and return token"""
+    """Authenticate user via email & password"""
     try:
-        # Note: This is a simplified example. Use Frappe's built-in auth in production
-        user = frappe.db.get_value("User", email, ["name", "password"])
-        if not user:
-            return error_response("Invalid credentials", "AUTH_FAILED", 401)
-        
-        # Generate session token (Frappe handles this)
         from frappe.auth import LoginManager
+        
+        # Try to authenticate
         login_manager = LoginManager()
         login_manager.authenticate(email, password)
+        login_manager.post_login()
         
-        alumni = frappe.db.get_value("Alumni", {"email": email}, "name")
+        # Get alumni info
+        alumni_id = frappe.db.get_value("Alumni", {"email": email}, "name")
+        user = frappe.get_doc("User", email)
         
         return success_response(
             {
                 "token": frappe.session.sid,
                 "email": email,
-                "alumni_id": alumni
+                "alumni_id": alumni_id,
+                "full_name": user.full_name
             },
             "Login successful"
         )
+    except frappe.AuthenticationError:
+        return error_response("Invalid email or password", "AUTH_FAILED", 401)
+    except frappe.DoesNotExistError:
+        return error_response("User not found", "USER_NOT_FOUND", 404)
     except Exception as e:
-        return error_response(str(e), "AUTH_ERROR", 401)
+        return error_response(str(e), "AUTH_ERROR", 500)
 
 @frappe.whitelist()
 def get_current_user():
@@ -135,6 +161,15 @@ def get_current_user():
         })
     except Exception as e:
         return error_response(str(e), "USER_FETCH_ERROR", 500)
+
+@frappe.whitelist(allow_guest=True)
+def logout():
+    """Logout current user"""
+    try:
+        frappe.session.logout()
+        return success_response(None, "Logged out successfully")
+    except Exception as e:
+        return error_response(str(e), "LOGOUT_ERROR", 500)
 
 # ============== ALUMNI ENDPOINTS ==============
 
@@ -496,24 +531,12 @@ def get_event_details(event_id):
     try:
         event = frappe.get_doc("AMS Event", event_id)
         
-        # Get RSVP details
-        rsvps = frappe.db.get_list(
-            "Event RSVP",
-            filters={"event": event.name},
-            fields=["alumni", "response_status", "guests"],
-            group_by="response_status"
-        )
-        
+        # Get RSVP stats
         rsvp_stats = {
-            "going": 0,
-            "maybe": 0,
-            "not_going": 0
+            "going": frappe.db.count("Event RSVP", {"event": event.name, "response_status": "Going"}),
+            "maybe": frappe.db.count("Event RSVP", {"event": event.name, "response_status": "Maybe"}),
+            "not_going": frappe.db.count("Event RSVP", {"event": event.name, "response_status": "Not Going"})
         }
-        for rsvp in rsvps:
-            status_key = rsvp.response_status.lower().replace(" ", "_")
-            rsvp_stats[status_key] = frappe.db.count("Event RSVP", 
-                                                     {"event": event.name, 
-                                                      "response_status": rsvp.response_status})
         
         return success_response({
             "id": event.name,
