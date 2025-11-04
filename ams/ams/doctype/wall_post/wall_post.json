@@ -2,33 +2,88 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "field:title",
- "creation": "2025-10-29 14:05:00.000000",
+ "creation": "2025-10-29 14:05:00",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
   "title",
   "alumni",
-  "content",
   "featured_image",
-  "likes_count",
   "is_featured",
+  "column_break_rtrw",
+  "likes_count",
   "status",
-  "published_on"
+  "published_on",
+  "section_break_zkyj",
+  "content"
  ],
  "fields": [
-  {"fieldname": "title", "fieldtype": "Data", "label": "Title", "reqd": 1},
-  {"fieldname": "alumni", "fieldtype": "Link", "label": "Alumni", "options": "Alumni", "reqd": 1},
-  {"fieldname": "content", "fieldtype": "Text Editor", "label": "Content", "reqd": 1},
-  {"fieldname": "featured_image", "fieldtype": "Attach Image", "label": "Featured Image"},
-  {"fieldname": "likes_count", "fieldtype": "Int", "label": "Likes", "default": 0, "read_only": 1},
-  {"fieldname": "is_featured", "fieldtype": "Check", "label": "Featured in Wall of Fame"},
-  {"fieldname": "status", "fieldtype": "Select", "label": "Status", "options": "Published\nDraft\nArchived", "default": "Draft"},
-  {"fieldname": "published_on", "fieldtype": "Datetime", "label": "Published On"}
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Title",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "alumni",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Alumni",
+   "options": "Alumni",
+   "reqd": 1
+  },
+  {
+   "fieldname": "content",
+   "fieldtype": "Text Editor",
+   "in_list_view": 1,
+   "label": "Content",
+   "reqd": 1
+  },
+  {
+   "fieldname": "featured_image",
+   "fieldtype": "Attach Image",
+   "label": "Featured Image"
+  },
+  {
+   "default": "0",
+   "fieldname": "likes_count",
+   "fieldtype": "Int",
+   "label": "Likes",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_featured",
+   "fieldtype": "Check",
+   "label": "Featured in Wall of Fame"
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Published\nDraft\nArchived"
+  },
+  {
+   "fieldname": "published_on",
+   "fieldtype": "Datetime",
+   "label": "Published On"
+  },
+  {
+   "fieldname": "column_break_rtrw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_zkyj",
+   "fieldtype": "Section Break"
+  }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-10-29 14:05:00.000000",
+ "modified": "2025-11-04 12:19:19.314838",
  "modified_by": "Administrator",
  "module": "AMS",
  "name": "Wall Post",
@@ -46,8 +101,24 @@
    "share": 1,
    "write": 1
   },
-  {"create": 1, "delete": 0, "email": 0, "export": 0, "print": 0, "read": 1, "report": 0, "role": "Alumni", "share": 0, "write": 1},
-  {"create": 1, "delete": 1, "email": 1, "export": 1, "print": 1, "read": 1, "report": 1, "role": "Alumni Admin", "share": 1, "write": 1}
+  {
+   "create": 1,
+   "read": 1,
+   "role": "Alumni",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Alumni Admin",
+   "share": 1,
+   "write": 1
+  }
  ],
  "row_format": "Dynamic",
  "sort_field": "modified",
