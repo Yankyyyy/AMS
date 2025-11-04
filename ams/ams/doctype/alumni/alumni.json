@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "field:email",
  "creation": "2025-10-29 14:05:00",
@@ -117,9 +118,10 @@
   }
  ],
  "grid_page_length": 50,
+ "image_field": "profile_picture",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-11-04 10:53:34.383044",
+ "modified": "2025-11-04 12:12:14.719793",
  "modified_by": "Administrator",
  "module": "AMS",
  "name": "Alumni",

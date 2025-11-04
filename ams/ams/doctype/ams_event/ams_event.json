@@ -6,32 +6,92 @@
  "engine": "InnoDB",
  "field_order": [
   "event_name",
-  "description",
+  "event_image",
   "event_date",
   "venue",
   "max_capacity",
+  "column_break_jkzf",
   "organizer",
-  "event_image",
   "status",
   "rsvp_count",
-  "created_on"
+  "created_on",
+  "section_break_zvba",
+  "description"
  ],
  "fields": [
-  {"fieldname": "event_name", "fieldtype": "Data", "label": "Event Name", "reqd": 1},
-  {"fieldname": "description", "fieldtype": "Text Editor", "label": "Description"},
-  {"fieldname": "event_date", "fieldtype": "Datetime", "label": "Event Date", "reqd": 1},
-  {"fieldname": "venue", "fieldtype": "Data", "label": "Venue"},
-  {"fieldname": "max_capacity", "fieldtype": "Int", "label": "Max Capacity"},
-  {"fieldname": "organizer", "fieldtype": "Link", "label": "Organizer", "options": "User"},
-  {"fieldname": "event_image", "fieldtype": "Attach Image", "label": "Event Image"},
-  {"fieldname": "status", "fieldtype": "Select", "label": "Status", "options": "Upcoming\nOngoing\nCompleted\nCancelled", "default": "Upcoming"},
-  {"fieldname": "rsvp_count", "fieldtype": "Int", "label": "RSVP Count", "read_only": 1},
-  {"fieldname": "created_on", "fieldtype": "Datetime", "label": "Created On", "read_only": 1}
+  {
+   "fieldname": "event_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Event Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description"
+  },
+  {
+   "fieldname": "event_date",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Event Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "venue",
+   "fieldtype": "Data",
+   "label": "Venue"
+  },
+  {
+   "fieldname": "max_capacity",
+   "fieldtype": "Int",
+   "label": "Max Capacity"
+  },
+  {
+   "fieldname": "organizer",
+   "fieldtype": "Link",
+   "label": "Organizer",
+   "options": "User"
+  },
+  {
+   "fieldname": "event_image",
+   "fieldtype": "Attach Image",
+   "label": "Event Image"
+  },
+  {
+   "default": "Upcoming",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Upcoming\nOngoing\nCompleted\nCancelled"
+  },
+  {
+   "fieldname": "rsvp_count",
+   "fieldtype": "Int",
+   "label": "RSVP Count",
+   "read_only": 1
+  },
+  {
+   "fieldname": "created_on",
+   "fieldtype": "Datetime",
+   "label": "Created On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_jkzf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_zvba",
+   "fieldtype": "Section Break"
+  }
  ],
  "grid_page_length": 50,
+ "image_field": "event_image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-10-29 14:05:00.000000",
+ "modified": "2025-11-04 12:18:08.489856",
  "modified_by": "Administrator",
  "module": "AMS",
  "name": "AMS Event",
@@ -49,8 +109,22 @@
    "share": 1,
    "write": 1
   },
-  {"create": 0, "delete": 0, "email": 0, "export": 0, "print": 0, "read": 1, "report": 0, "role": "Alumni", "share": 0, "write": 0},
-  {"create": 1, "delete": 1, "email": 1, "export": 1, "print": 1, "read": 1, "report": 1, "role": "Alumni Admin", "share": 1, "write": 1}
+  {
+   "read": 1,
+   "role": "Alumni"
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Alumni Admin",
+   "share": 1,
+   "write": 1
+  }
  ],
  "row_format": "Dynamic",
  "sort_field": "modified",
